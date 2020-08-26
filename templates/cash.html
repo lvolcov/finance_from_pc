@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Cash
+{% endblock %}
+
+{% block main %}
+    <div><b>Add up to $5.000 per transaction.</b></div><br><br>
+    <form action="/cash" method="post">
+        <div class="form-group">
+            <input id="cash" autocomplete="off" autofocus class="form-control" min="1" name="cash" placeholder="How Much?" type="number">
+        </div><br>
+        <button id="add" class="btn btn-primary" type="submit" onclick="disableButton(this)">Add</button>
+        <script>
+            function disableButton(button) {
+                cash = parseInt(document.querySelector("#cash").value)
+                if (cash < 1){
+                    alert("Select a positive value.");
+                }
+                else{
+                    button.disabled = true;
+                    button.innerHTML = "submitting...."
+                    button.form.submit();
+                }
+            }
+        </script>
+    </form>
+{% endblock %}

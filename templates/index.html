@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+<table class="table table-striped" style="text-align:left">
+    <thead>
+        <tr>
+            {% for key in info_index[0].keys() %}
+
+             <th>{{ key }}</th>
+
+            {% endfor %}
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="4"></td>
+            <td><b>{{ sum_total }}</b></td>
+        </tr>
+    </tfoot>
+    <tbody>
+        {% for item in info_index %}
+            <tr>
+                {% for i in item.values() %}
+
+                   <td>{{ i }}</td>
+
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

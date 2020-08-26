@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<table class="table table-striped" style="text-align:left">
+    <thead>
+        {% if info_history|length < 1 %}
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Transacted</th>
+            </tr>
+    </thead>
+        {% else %}
+            <tr>
+                {% for key in info_history[0].keys() %}
+
+                 <th>{{ key }}</th>
+
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in info_history %}
+                <tr>
+                    {% for i in item.values() %}
+
+                       <td>{{ i }}</td>
+
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+        {% endif %}
+</table>
+{% endblock %}

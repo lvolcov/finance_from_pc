@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+    <form action="/buy" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text">
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" id="shares" class="form-control" min="1" name="shares" placeholder="Shares" type="number">
+        </div>
+        <button class="btn btn-primary" type="submit" onclick="disableButton(this)">Buy</button>
+    </form>
+    <script>
+        function disableButton(button) {
+            shares = parseInt(document.querySelector("#shares").value)
+            if (shares < 1){
+                alert("Select a positive value.");
+            }
+            else{
+                button.disabled = true;
+                button.innerHTML = "submitting...."
+                button.form.submit();
+            }
+        }
+    </script>
+{% endblock %}

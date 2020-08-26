@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <form action="/sell" method="post">
+        <div class="form-group">
+            <select id="symbol" class="form-control" name="symbol">
+                <option disable selected value> Symbol</option>
+                {% for item in stocks %}
+                <option value={{ item }}> {{ item }} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <input id="shares" autocomplete="off" class="form-control" min="1" name="shares" placeholder="Shares" type="number">
+        </div>
+        <button id="sell" class="btn btn-primary" type="submit" onclick="disableButton(this)" disabled>Sell</button>
+    </form>
+    <br><br><b><div id="sell_info" style="visibility:hidden;"> test </div></b>
+    <script>
+    var shares = {{ shares }};
+    let names = JSON.parse({{ names | tojson }});
+    document.querySelector("#symbol").onchange = function() {
+        var x = document.getElementById("symbol").selectedIndex;
+        var max_shares = shares[x-1];
+        document.querySelector("#shares").max = max_shares;
+        if (max_shares === 1){
+            document.querySelector("#sell_info").innerHTML = "You currently own " + String(max_shares) + " share from " + names[x-1];
+        }
+        else{
+            document.querySelector("#sell_info").innerHTML = "You currently own " + String(max_shares) + " shares from " + names[x-1];
+        }
+        if (x === 0){
+            document.querySelector("#sell_info").style.visibility = 'hidden';
+            document.querySelector("#sell").disabled = true;
+        }
+        else{
+            document.querySelector("#sell_info").style.visibility = 'visible';
+            document.querySelector("#sell").disabled = false;
+        }
+    }
+    function disableButton(button) {
+        shares = parseInt(document.querySelector("#shares").value)
+            if (shares < 1){
+                alert("Select a positive value.");
+            }
+            else{
+                button.disabled = true;
+                button.innerHTML = "submitting...."
+                button.form.submit();
+            }
+        }
+</script>
+{% endblock %}
