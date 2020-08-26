@@ -1,4 +1,5 @@
 import os
+import sqlalchemy
 
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, json
@@ -265,3 +266,7 @@ def cash():
                                       'CASH', 'CASH', 0, add_cash, add_cash, add_cash)
         flash('Cash added!')
         return redirect("/")
+
+
+if __name__ == '__main__':
+    app.run()
